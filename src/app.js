@@ -8,7 +8,7 @@ app.use(
   cors({
     //telling the  express server that it can get request from specified origins
     origin: process.env.CORS,
-    credentials: true,
+    credentials: true
   })
 );
 
