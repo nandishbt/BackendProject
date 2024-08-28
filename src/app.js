@@ -1,2 +1,25 @@
-import express from 'express';
-export const app = express();
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+
+const app = express();
+
+app.use(
+  cors({
+    //telling the  express server that it can get request from specified origins
+    origin: process.env.CORS,
+    credentials: true,
+  })
+);
+
+app.use(express.json({ limit: "16kb" })); //tell express server that it can receive request in json format
+
+app.use(express.urlencoded({ extended: true, limit: "16kb" })); //tell express server that it can receive request in urlencodedformat
+
+app.use(express.static("public")); //used to store images,pdfs and some other date in this folder in our server
+
+app.use(cookieParser()); //server  can be able to access & set cookies from user brower , server can perform crud operations from that cookies
+
+export { app };
+
+
