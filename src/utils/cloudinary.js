@@ -1,5 +1,5 @@
-import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+import { v2 as cloudinary } from 'cloudinary';
+import fs from 'fs';
 
 // Configuration
 cloudinary.config({
@@ -8,28 +8,24 @@ cloudinary.config({
   api_secret: CLOUDINARY_API_SECRET
 });
 
-async function savetoCloudinary(localFilepath) { //saveing local file to cloudinary
- try {
-    const res = await cloudinary.uploader.upload(localFilepath,{
-        resource_type: "auto",
-        public_id: "videotube"
-       
-    })
+async function savetoCloudinary(localFilepath) {
+  //saveing local file to cloudinary
+  try {
+    const res = await cloudinary.uploader.upload(localFilepath, {
+      resource_type: 'auto',
+      public_id: 'videotube'
+    });
     console.log(res.url);
-    fs.unlink(localFilepath);  // Delete the local file after upload to Cloudinary
+    fs.unlinkSync(localFilepath); // Delete the local file after upload to Cloudinary
     return res;
-    
- } catch (error) {
-     console.error(`Error saving to Cloudinary: ${error.message}`);
-     fs.unlink(localFilepath); // Delete local file path if upload fails
-     return null;
-    
- }
+  } catch (error) {
+    console.error(`Error saving to Cloudinary: ${error.message}`);
+    fs.unlinkSync(localFilepath); // Delete local file path if upload fails
+    return null;
+  }
 }
 
-
-
-  // Optimize delivery by resizing and applying auto-format and auto-quality
+// Optimize delivery by resizing and applying auto-format and auto-quality
 //   const optimizeUrl = cloudinary.url("shoes", {
 //     fetch_format: "auto",
 //     quality: "auto",
@@ -47,4 +43,4 @@ async function savetoCloudinary(localFilepath) { //saveing local file to cloudin
 
 //   console.log(autoCropUrl);
 
-export {savetoCloudinary}
+export { savetoCloudinary };

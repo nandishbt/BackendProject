@@ -3,34 +3,21 @@
 //     path: './.env'              //we need to config .env bcz it is needed as eearly as possible is used in project
 // })
 
+import { app } from './app.js';
+import mongodb from './Db/index.js';
 
-
-
-import { app } from "./app.js";
-import mongodb from "./Db/index.js";
-
-
-
-const port = process.env.PORT || 8000
-
+const port = process.env.PORT || 8000;
 
 mongodb()
-.then(() => {
-  app.listen(port, () => {
-    console.log(`app listening on port ${process.env.PORT}`);
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`app listening on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log('index', err);
   });
-})
-.catch((err)=>{
-console.log('index',err);
-});
-
-
-
-
 
 app.get('/', (req, res) => {
-    res.send('Hello World! from 8000');
-})
-
-
-
+  res.send('Hello World! from 8000');
+});
