@@ -1,7 +1,7 @@
-// import dotenv from 'dotenv'     //we do this in package.json file
-// dotenv.config({
-//     path: './.env'              //we need to config .env bcz it is needed as eearly as possible is used in project
-// })
+import dotenv from 'dotenv'     //we do this in package.json file
+dotenv.config({
+    path: './.env'              //we need to config .env bcz it is needed as eearly as possible is used in project
+})
 
 import { app } from './app.js';
 import mongodb from './Db/index.js';
@@ -18,6 +18,4 @@ mongodb()
     console.log('index', err);
   });
 
-app.get('/', (req, res) => {
-  res.send('Hello World! from 8000');
-});
+
