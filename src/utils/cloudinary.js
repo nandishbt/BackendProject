@@ -11,11 +11,12 @@ cloudinary.config({
 async function savetoCloudinary(localFilepath) {
   //saveing local file to cloudinary
   try {
+    if(!localFilepath) return null;
     const res = await cloudinary.uploader.upload(localFilepath, {
       resource_type: 'auto',
-      public_id: 'videotube'
+     
     });
-    console.log(res.url);
+
     fs.unlinkSync(localFilepath); // Delete the local file after upload to Cloudinary
     return res;
   } catch (error) {
