@@ -14,6 +14,7 @@ async function savetoCloudinary(localFilepath) {
     if(!localFilepath) return null;
     const res = await cloudinary.uploader.upload(localFilepath, {
       resource_type: 'auto',
+      
      
     });
 
