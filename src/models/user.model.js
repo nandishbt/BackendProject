@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {        //we are using es5 because value of this keyword in es6 will be window object in es5 it is current object
   //es5 function is used to reference this keyword
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 10);
