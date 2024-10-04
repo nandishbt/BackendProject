@@ -326,6 +326,97 @@ const updateUserCoverImage = AsyncHandler(async (req, res) => {
     .json(new apiResponse(201, 'User Cover Image Updated Successfully', user));
 });
 
+const channel = AsyncHandler(async (req,res)=>{
+  const {username} = req.params
+
+  if(!username){
+    throw new apiError(400, 'Please provide a username')
+  }
+
+  const channel = await User.aggregate([
+    {
+      $match : {
+        username
+      }
+    },
+
+    {
+      $lookup :{
+        from : 'subscriptions',
+        localField : '_id',
+        foreignField : 'owner',
+        as : 'subscribers'
+      }
+    },
+
+    {
+      $lookup :{
+        from : 'subscriptions',
+        localField : '_id',
+        foreignField : 'subscriber',
+        as : 'SubscribedTo'
+      }
+    },
+
+
+    {
+      $addFields :{
+        "noOfSubcribers":{
+          $size : "$subscribers"
+        },
+
+        "subscribedTo" : {
+          $size : "$SubscribedTo"
+        },
+
+        "isSubscribed":{
+          $cond:{
+
+
+            if :{
+              $in:[req.user?._id,"$subscribers.subscriber"],  /////match :{subscribers :{$elemmatch : {subscriber : req.user._id} }
+              then:true,
+              else:false
+              
+            }
+
+          }
+        }
+      }
+    },
+
+    {
+      $project:{
+        fullName:1,
+        username:1,
+        avatar:1,
+        coverImage:1,
+        noOfSubcribers:1,
+        subscribedTo:1,
+        isSubscribed:1
+      }
+    }
+
+
+
+
+
+
+
+
+  ])
+
+
+  if(!channel?.length){
+    throw new apiError(404, 'User not found')
+  }
+
+  return res.status(200).json(new apiResponse(201, 'Channel fetched successfully', channel[0]))
+})
+
+
+
+
 export {
   registerUser,
   loginUser,
@@ -335,5 +426,6 @@ export {
   getCurrentUser,
   updateUser,
   updateUserAvatar,
-  updateUserCoverImage
+  updateUserCoverImage,
+  channel
 };
