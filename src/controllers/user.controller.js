@@ -133,7 +133,7 @@ const loginUser = AsyncHandler(async (req, res) => {
     '-password -refreshToken'
   );
 
-  const options = {
+  const options = {  //make sure that only server can set and alter cookies
     httpOnly: true,
     secure: true
   };
