@@ -4,6 +4,7 @@ import { apiError } from '../utils/apiError.js';
 import { apiResponse } from '../utils/apiResponse.js';
 import { savetoCloudinary } from '../utils/cloudinary.js';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -372,12 +373,12 @@ const channel = AsyncHandler(async (req, res) => {
         isSubscribed: {
           $cond: {
             if: {
-              $in: [req.user?._id, '$subscribers.subscriber'], /////match :{subscribers :{$elemmatch : {subscriber : req.user._id} }
+              $in: [req.user?._id, '$subscribers.subscriber']}, /////match :{subscribers :{$elemmatch : {subscriber : req.user._id} }
               then: true,
               else: false
             }
           }
-        }
+        
       }
     },
 
