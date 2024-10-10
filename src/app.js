@@ -24,10 +24,18 @@ app.use(cookieParser()); //server  can be able to access & set cookies from user
 //import routes
 
 import userRoute from './routes/user.route.js'
+import commentRoute from './routes/comment.route.js'
+import videoRoute from './routes/video.route.js'
 
 //middleware routes
 
 app.use('/api/users', userRoute);
+app.use('/api/comment',commentRoute);
+app.use('/api/video', videoRoute);
+
+
+
+
 
 
 const port = process.env.PORT || 8000;
