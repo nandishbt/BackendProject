@@ -28,13 +28,15 @@ import commentRoute from './routes/comment.route.js'
 import videoRoute from './routes/video.route.js'
 import dashboardRoute from './routes/dashboard.route.js'
 import healthRoute from './routes/healthcheck.route.js'
-
+import likeRoute from './routes/like.route.js'
+ 
 //middleware routes
 app.use('/api/healthcheck',healthRoute)
 app.use('/api/users', userRoute);
 app.use('/api/comment',commentRoute);
 app.use('/api/video', videoRoute);
 app.use('/api/dashboard', dashboardRoute);
+app.use('/api/likes',likeRoute)
 
 
 
