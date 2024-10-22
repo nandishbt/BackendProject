@@ -29,6 +29,7 @@ import videoRoute from './routes/video.route.js'
 import dashboardRoute from './routes/dashboard.route.js'
 import healthRoute from './routes/healthcheck.route.js'
 import likeRoute from './routes/like.route.js'
+import playlistRoute from './routes/playlist.route.js'
  
 //middleware routes
 app.use('/api/healthcheck',healthRoute)
@@ -37,6 +38,7 @@ app.use('/api/comment',commentRoute);
 app.use('/api/video', videoRoute);
 app.use('/api/dashboard', dashboardRoute);
 app.use('/api/likes',likeRoute)
+app.use('/api/playlist',playlistRoute)
 
 
 
